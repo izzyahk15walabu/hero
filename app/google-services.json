@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "497426113800",
+    "firebase_url": "https://orospm-67e38.firebaseio.com",
+    "project_id": "orospm-67e38",
+    "storage_bucket": "orospm-67e38.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:497426113800:android:52294ff7bb1ed4bc",
+        "android_client_info": {
+          "package_name": "com.walaabu.gadalaw"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "497426113800-gfqs40hj2jtcvt1rj54u71rgj95mmkbu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.walaabu.gadalaw",
+            "certificate_hash": "396c723d2e4da2f12b9079c580f61353bb06814b"
+          }
+        },
+        {
+          "client_id": "497426113800-lg0vajdkp9vr5sct8uvflhmk5gi8f1j7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuQKjcQQpCDjdloXE51t1AkEwFM8ogxww"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "497426113800-lg0vajdkp9vr5sct8uvflhmk5gi8f1j7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
