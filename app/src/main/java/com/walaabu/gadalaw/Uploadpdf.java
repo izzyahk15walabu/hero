@@ -36,8 +36,10 @@ public class Uploadpdf extends AppCompatActivity {
     Button btnSelectpdf;
     RecyclerView rc_uploadpdf;
 
-    List<String>mpdffilenamelist;
-    List<String>mpdfdonelist;
+    //List<String>mpdffilenamelist;
+   // List<String>mpdfdonelist;
+
+    List<PDFfile>mpdFfileList;
 
 
     Adpaterforselectedpdfs madpterforuploadlist;
@@ -55,10 +57,11 @@ mStorageRef=FirebaseStorage.getInstance().getReference();
         btnSelectpdf=findViewById(R.id.btn_uploadselected);
 
 
-        mpdffilenamelist=new ArrayList<>();
-        mpdfdonelist=new ArrayList<>();
+       // mpdffilenamelist=new ArrayList<>();
+       // mpdfdonelist=new ArrayList<>();
+        mpdFfileList=new ArrayList<>();
 
-        madpterforuploadlist=new Adpaterforselectedpdfs(mpdffilenamelist,mpdfdonelist);
+        madpterforuploadlist=new Adpaterforselectedpdfs(mpdFfileList);
 
 
         rc_uploadpdf=findViewById(R.id.rc_uploadpdf);
@@ -114,7 +117,9 @@ mStorageRef=FirebaseStorage.getInstance().getReference();
 
                         Uri pdfuri=data.getClipData().getItemAt(i).getUri();
                         String mfilename = getFileName(pdfuri);
-                        mpdffilenamelist.add(mfilename);
+                        String fileUri="";
+                        PDFfile mpdfile= new PDFfile(mfilename,fileUri);
+                        mpdFfileList.add(mpdfile);
                         madpterforuploadlist.notifyDataSetChanged();
 
 
@@ -122,6 +127,7 @@ mStorageRef=FirebaseStorage.getInstance().getReference();
                           @Override
                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                Toast.makeText(Uploadpdf.this,"done",Toast.LENGTH_SHORT).show();
+
                           }
                        });
 
@@ -160,6 +166,8 @@ mStorageRef=FirebaseStorage.getInstance().getReference();
         }
         return result;
     }
+
+
 
 
 }

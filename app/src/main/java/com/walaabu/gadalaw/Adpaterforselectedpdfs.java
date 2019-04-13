@@ -15,15 +15,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class Adpaterforselectedpdfs extends RecyclerView.Adapter<Adpaterforselectedpdfs.Viewholder> {
+ List <PDFfile> mpdffilelist;
+   // List<String >mpdfilenamelist;
+   // List<String>mpdfdonelist;
 
-    List<String >mpdfilenamelist;
-    List<String>mpdfdonelist;
+    public Adpaterforselectedpdfs(List<PDFfile>pdffilelist){
 
-    public Adpaterforselectedpdfs(List<String>filename,List<String>filedone){
-
-
-        mpdfdonelist=filedone;
-        mpdfilenamelist=filename;
+                  mpdffilelist=pdffilelist;
+       // mpdfdonelist=filedone;
+        //mpdfilenamelist=filename;
     }
     @NonNull
     @Override
@@ -37,14 +37,14 @@ public class Adpaterforselectedpdfs extends RecyclerView.Adapter<Adpaterforselec
     @Override
     public void onBindViewHolder(@NonNull Viewholder holder, int position) {
 
-        String mpdffilename=mpdfilenamelist.get(position);
+        String mpdffilename=mpdffilelist.get(position).getName();
         holder.mpdffilenameview.setText(mpdffilename);
 
     }
 
     @Override
     public int getItemCount() {
-        return mpdfilenamelist.size();
+        return mpdffilelist.size();
     }
 
     public class Viewholder extends RecyclerView.ViewHolder{
