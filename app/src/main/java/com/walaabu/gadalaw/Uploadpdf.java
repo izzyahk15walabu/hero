@@ -1,6 +1,7 @@
 package com.walaabu.gadalaw;
 
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,11 +16,18 @@ import android.provider.OpenableColumns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -32,7 +40,9 @@ public class Uploadpdf extends AppCompatActivity {
     private static final int RESULT_LOAD_PDF = 1;
 
   private StorageReference mStorageRef;
+  FirebaseDatabase mdatabase;
    StorageReference pdftoupload;
+
     Button btnSelectpdf;
     RecyclerView rc_uploadpdf;
 
@@ -40,6 +50,8 @@ public class Uploadpdf extends AppCompatActivity {
    // List<String>mpdfdonelist;
 
     List<PDFfile>mpdFfileList;
+
+    ProgressBar progerassbar;
 
 
     Adpaterforselectedpdfs madpterforuploadlist;
@@ -51,6 +63,7 @@ public class Uploadpdf extends AppCompatActivity {
        // myapp= FirebaseApp.initializeApp(getApplicationContext());
 
 mStorageRef=FirebaseStorage.getInstance().getReference();
+mdatabase=FirebaseDatabase.getInstance();
 
         pdftoupload=mStorageRef.child("PDF");
 
@@ -84,7 +97,7 @@ mStorageRef=FirebaseStorage.getInstance().getReference();
         btnSelectpdf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+//the below lines allows us to choose the  file we wont from the file explorer in android
                 // the below lines sends an intent to outside  to select pdfs
                 Intent intent=new Intent();
                 intent.setType("application/pdf");
@@ -95,7 +108,7 @@ mStorageRef=FirebaseStorage.getInstance().getReference();
         });
     }
 
-    //the below line allows us to choose the  file we wont from the file explorer in android
+
 //this methode proccess the intent by cheking our requestcode we sent to outside to get the pdfs files if we get a data
 // it proceess it by getting its filename and adding it to the pdfnamelists
 
@@ -115,21 +128,63 @@ mStorageRef=FirebaseStorage.getInstance().getReference();
 
                     for (int i=0; i < totalitemselected;i++){
 
-                        Uri pdfuri=data.getClipData().getItemAt(i).getUri();
-                        String mfilename = getFileName(pdfuri);
+                        final Uri pdfuri=data.getClipData().getItemAt(i).getUri();
+                       final String  mfilename = getFileName(pdfuri);
                         String fileUri="";
                         PDFfile mpdfile= new PDFfile(mfilename,fileUri);
                         mpdFfileList.add(mpdfile);
                         madpterforuploadlist.notifyDataSetChanged();
 
 
+                        //this line uploads data to firebase storage
                         pdftoupload.child(mfilename).putFile(pdfuri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                           @Override
                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                               Toast.makeText(Uploadpdf.this,"done",Toast.LENGTH_SHORT).show();
+                               //Toast.makeText(Uploadpdf.this,"done",Toast.LENGTH_SHORT).show();
+                              final String rlstring=mfilename.substring(0,mfilename.length()-4);
+
+
+
+                               //the blew uoloads the filename and uri to realtimedatabase and sends toast when completed
+                                  pdftoupload.child(mfilename).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                      @Override
+                                      public void onSuccess(Uri uri) {
+                                          String downloadurl=uri.toString();
+
+
+                                          DatabaseReference databaseref= mdatabase.getReference();
+                                          databaseref.child(rlstring ).
+                                                  setValue(downloadurl).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                              @Override
+                                              public void onComplete(@NonNull Task<Void> task) {
+
+                                                  if (task.isSuccessful()) {
+                                                      Toast.makeText(Uploadpdf.this, "pdf uploaded ", Toast.LENGTH_SHORT).show();
+                                                  }else{
+                                                      Toast.makeText(Uploadpdf.this, "pdf notuploaded sucessfulyy ", Toast.LENGTH_SHORT).show();
+                                                  }
+                                              }
+                                          });
+                                      }
+                                  });
+
+
 
                           }
-                       });
+                       }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                //do something here if it fails to upload the file
+
+                            }
+                        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+
+
+
+                            }
+                        });
 
                     }
 
