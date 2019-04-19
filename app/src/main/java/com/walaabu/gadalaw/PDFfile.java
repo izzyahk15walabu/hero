@@ -1,5 +1,7 @@
 package com.walaabu.gadalaw;
 
+import android.net.Uri;
+
 public class PDFfile {
 
     String name;
@@ -19,10 +21,8 @@ public class PDFfile {
     }
 
     public String getUri() {
-        return Uri;
+       return  Uri;
     }
 
-    public void setUri(String uri) {
-        Uri = uri;
-    }
+
 }
