@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">GADA law</string>
+    <string name="title_activity_test">test</string>
+    <string name="title_books">books</string>
+    <string name="title_download">Download</string>
+    <string name="title_saved">saved</string>
 </resources>

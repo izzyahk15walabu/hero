@@ -3,14 +3,18 @@ package com.walaabu.gadalaw;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Switch;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -79,7 +83,41 @@ recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
  recyclerView.setAdapter(madpterDownload);
 
 
+        BottomNavigationView bottomnavigation=findViewById(R.id.bottomnavigatin);
+        bottomnavigation.setOnNavigationItemSelectedListener(navlistner);
+        // this line forecessthr b ook fargment to be inflated frist with out clicking
+        getSupportFragmentManager().beginTransaction().replace(R.id.fargmentscontainer,new Fragment_books()).commit();
+
 
 
     }
+
+
+   private BottomNavigationView.OnNavigationItemSelectedListener navlistner=
+           new BottomNavigationView.OnNavigationItemSelectedListener() {
+               @Override
+               public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                   Fragment selectedfragment=null;
+                   switch(menuItem.getItemId()){
+
+                       case R.id.navigation_book:
+                       selectedfragment=new Fragment_books();
+                       break;
+                       case R.id.navigation_download:
+                           selectedfragment=new Fragment_download();
+                           break;
+                       case R.id.navigation_saved:
+                           selectedfragment=new Fragment_saved();
+                           break;
+
+
+
+
+                   }
+                   getSupportFragmentManager().beginTransaction().replace(R.id.fargmentscontainer,selectedfragment).commit();
+
+
+                   return true;
+               }
+           };
 }
