@@ -18,6 +18,7 @@
         android:layout_marginEnd="236dp"
         android:layout_marginRight="236dp"
         android:text="addpdf"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,18 +26,18 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcid_download"
-        android:layout_width="349dp"
-        android:layout_height="50dp"
+        android:layout_width="407dp"
+        android:layout_height="485dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginStart="1dp"
-        android:layout_marginLeft="1dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="61dp"
-        android:layout_marginRight="61dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_addbutton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,9 +45,9 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomnavigatin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/bottomnavigatin"
 
         android:layout_alignParentBottom="true"
 
@@ -54,13 +55,13 @@
 
     <FrameLayout
         android:id="@+id/fargmentscontainer"
-        android:layout_width="406dp"
-        android:layout_height="442dp"
+        android:layout_width="match_parent"
+        android:layout_height="148dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
         android:layout_marginBottom="57dp">
 
     </FrameLayout>

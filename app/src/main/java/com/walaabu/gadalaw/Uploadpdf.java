@@ -152,7 +152,7 @@ mdatabase=FirebaseDatabase.getInstance();
                                           String downloadurl=uri.toString();
 
 
-                                          DatabaseReference databaseref= mdatabase.getReference();
+                                          DatabaseReference databaseref= mdatabase.getReference("PDF");
                                           databaseref.child(rlstring ).
                                                   setValue(downloadurl).addOnCompleteListener(new OnCompleteListener<Void>() {
                                               @Override

@@ -5,11 +5,14 @@ import android.net.Uri;
 public class PDFfile {
 
     String name;
-    String Uri;
+    String adress;
 
-    public PDFfile(String name, String uri) {
+    public PDFfile() {
+    }
+
+    public PDFfile(String name, String adress) {
         this.name = name;
-        Uri = uri;
+        this.adress = adress;
     }
 
     public String getName() {
@@ -20,9 +23,11 @@ public class PDFfile {
         this.name = name;
     }
 
-    public String getUri() {
-       return  Uri;
+    public String getAdress() {
+        return adress;
     }
 
-
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
 }

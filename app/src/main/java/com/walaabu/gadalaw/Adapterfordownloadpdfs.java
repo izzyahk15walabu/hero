@@ -3,6 +3,7 @@ package com.walaabu.gadalaw;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -19,9 +21,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class Adapterfordownloadpdfs extends RecyclerView.Adapter<Adapterfordownloadpdfs.Viewholder> {
    List<PDFfile>mpdffilelist;
+    private static final String LOG_TAG = "AdapterFordownloadpdf ";
 
     public Adapterfordownloadpdfs(List<PDFfile>pdFfileList) {
         mpdffilelist=pdFfileList;
+        Log.d(LOG_TAG, " adapter initialized...... ..... .... ... .. .. .. . . ");
+        PDFfile a = mpdffilelist.get(0);
+        String b = a.getName();
+        Log.d(LOG_TAG, b + "-------------------------form adapter-------------");
     }
 
     @NonNull
@@ -38,7 +45,7 @@ public class Adapterfordownloadpdfs extends RecyclerView.Adapter<Adapterfordownl
 
         PDFfile mpdffile=mpdffilelist.get(position);
         String mpdffilename=mpdffile.getName();
-        final String uri=mpdffile.getUri();
+        final String uri=mpdffile.getAdress();
 
         holder.mtvpdfname.setText(mpdffilename);
 holder.mdownloadbutton.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +64,7 @@ holder.mdownloadbutton.setOnClickListener(new View.OnClickListener() {
 
     @Override
     public int getItemCount() {
+
         return mpdffilelist.size();
     }
 

@@ -4,15 +4,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Switch;
+
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.ChildEventListener;
@@ -25,16 +29,70 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String LOG_TAG = "MainActivity ";
     Button addpdfbtn;
     RecyclerView recyclerView;
+
     List<PDFfile>mpdFfileList;
     Adapterfordownloadpdfs madpterDownload;
+//livedata and and viewmodel for firebase
+    FirebaseViewmodel mviewModel;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-mpdFfileList=new ArrayList<>();
+
+
+         mpdFfileList=new ArrayList<>();
+
+
+        // Obtain a new or prior instance of FirebaseViewModel from the
+        // ViewModelProviders utility class.
+        mviewModel = ViewModelProviders.of(this).get(FirebaseViewmodel.class);
+
+
+        LiveData<List<PDFfile>> mLiveData = mviewModel.geeetPdfLiveData();
+/**
+
+        mpdFfileList= mLiveData.getValue();
+        if (mpdFfileList!=null) {
+            Log.d(LOG_TAG, "PUPULATED LIST BEFORE ONCHNGE IS CALLED..... ..... .... ... .. .. .. . . ");
+        }else {
+            Log.d(LOG_TAG, "  LIST is EMPETY BEFORE ONCHNGE IS CALLED..... ..... .... ... .. .. .. . . ");
+        }
+**/
         addpdfbtn=findViewById(R.id.btn_addbutton);
+        recyclerView=findViewById(R.id.rcid_download);
+        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+
+
+        mLiveData.observe(this, new Observer<List<PDFfile>>() {
+            @Override
+            public void onChanged(List<PDFfile> pdFfileList) {
+
+                if (pdFfileList!=null) {
+                    Log.d(LOG_TAG, "istning to the changes ...... ..... .... ... .. .. .. . . ");
+                    mpdFfileList = pdFfileList;
+
+                    PDFfile a = mpdFfileList.get(0);
+                    String b = a.getName();
+                    Log.d(LOG_TAG, b + "--------------------------------------");
+                    madpterDownload=new Adapterfordownloadpdfs(mpdFfileList);
+                    recyclerView.setAdapter(madpterDownload);
+                    madpterDownload.notifyDataSetChanged();
+
+                }else {
+                    Log.d(LOG_TAG, "the pdflist is empty  at Onchange ...... ..... .... ... .. .. .. . . ");
+                }
+            }
+        });
+
+
+
         final Intent i=new Intent(this,Uploadpdf.class);
         addpdfbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,8 +102,8 @@ mpdFfileList=new ArrayList<>();
             }
         });
 
- DatabaseReference dtbrf= FirebaseDatabase.getInstance().getReference();
-
+ //DatabaseReference dtbrf= FirebaseDatabase.getInstance().getReference();
+/**
         dtbrf.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -76,11 +134,8 @@ mpdFfileList=new ArrayList<>();
 
             }
         });
+**/
 
-           madpterDownload=new Adapterfordownloadpdfs(mpdFfileList);
-        recyclerView=findViewById(R.id.rcid_download);
-recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
- recyclerView.setAdapter(madpterDownload);
 
 
         BottomNavigationView bottomnavigation=findViewById(R.id.bottomnavigatin);
