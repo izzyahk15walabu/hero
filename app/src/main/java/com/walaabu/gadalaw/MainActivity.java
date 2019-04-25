@@ -47,15 +47,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-         mpdFfileList=new ArrayList<>();
+      //   mpdFfileList=new ArrayList<>();
 
 
         // Obtain a new or prior instance of FirebaseViewModel from the
         // ViewModelProviders utility class.
-        mviewModel = ViewModelProviders.of(this).get(FirebaseViewmodel.class);
+       // mviewModel = ViewModelProviders.of(this).get(FirebaseViewmodel.class);
 
 
-        LiveData<List<PDFfile>> mLiveData = mviewModel.geeetPdfLiveData();
+      //  LiveData<List<PDFfile>> mLiveData = mviewModel.geeetPdfLiveData();
 /**
 
         mpdFfileList= mLiveData.getValue();
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView=findViewById(R.id.rcid_download);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
 
-
+/**
         mLiveData.observe(this, new Observer<List<PDFfile>>() {
             @Override
             public void onChanged(List<PDFfile> pdFfileList) {
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
+**/
 
 
         final Intent i=new Intent(this,Uploadpdf.class);
