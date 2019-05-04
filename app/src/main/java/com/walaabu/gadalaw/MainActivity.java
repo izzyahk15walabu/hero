@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -141,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomnavigation=findViewById(R.id.bottomnavigatin);
         bottomnavigation.setOnNavigationItemSelectedListener(navlistner);
         // this line forecessthr b ook fargment to be inflated frist with out clicking
-        getSupportFragmentManager().beginTransaction().replace(R.id.fargmentscontainer,new Fragment_books()).commit();
+       // getSupportFragmentManager().beginTransaction().replace(R.id.fargmentscontainer,new Fragment_books()).commit();
 
 
 
@@ -175,4 +177,31 @@ public class MainActivity extends AppCompatActivity {
                    return true;
                }
            };
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.option, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.aboutMenu:
+                Log.d(LOG_TAG, "Clicked on About!");
+                // Code for About goes here
+                return true;
+            case R.id.addarticle:
+                Log.d(LOG_TAG, "Clicked on Help!");
+                Intent intent= new Intent(this,AddArticleactivity.class);
+                startActivity(intent);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
 }
