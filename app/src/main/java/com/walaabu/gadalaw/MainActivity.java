@@ -21,25 +21,12 @@ import android.widget.Button;
 
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
 import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = "MainActivity ";
-    Button addpdfbtn;
-    RecyclerView recyclerView;
-
-    List<PDFfile>mpdFfileList;
-    Adapterfordownloadpdfs madpterDownload;
-//livedata and and viewmodel for firebase
-    FirebaseViewmodel mviewModel;
-
 
 
 
@@ -49,101 +36,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-      //   mpdFfileList=new ArrayList<>();
-
-
-        // Obtain a new or prior instance of FirebaseViewModel from the
-        // ViewModelProviders utility class.
-       // mviewModel = ViewModelProviders.of(this).get(FirebaseViewmodel.class);
-
-
-      //  LiveData<List<PDFfile>> mLiveData = mviewModel.geeetPdfLiveData();
-/**
-
-        mpdFfileList= mLiveData.getValue();
-        if (mpdFfileList!=null) {
-            Log.d(LOG_TAG, "PUPULATED LIST BEFORE ONCHNGE IS CALLED..... ..... .... ... .. .. .. . . ");
-        }else {
-            Log.d(LOG_TAG, "  LIST is EMPETY BEFORE ONCHNGE IS CALLED..... ..... .... ... .. .. .. . . ");
-        }
-**/
-        addpdfbtn=findViewById(R.id.btn_addbutton);
-        recyclerView=findViewById(R.id.rcid_download);
-        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-
-/**
-        mLiveData.observe(this, new Observer<List<PDFfile>>() {
-            @Override
-            public void onChanged(List<PDFfile> pdFfileList) {
-
-                if (pdFfileList!=null) {
-                    Log.d(LOG_TAG, "istning to the changes ...... ..... .... ... .. .. .. . . ");
-                    mpdFfileList = pdFfileList;
-
-                    PDFfile a = mpdFfileList.get(0);
-                    String b = a.getName();
-                    Log.d(LOG_TAG, b + "--------------------------------------");
-                    madpterDownload=new Adapterfordownloadpdfs(mpdFfileList);
-                    recyclerView.setAdapter(madpterDownload);
-                    madpterDownload.notifyDataSetChanged();
-
-                }else {
-                    Log.d(LOG_TAG, "the pdflist is empty  at Onchange ...... ..... .... ... .. .. .. . . ");
-                }
-            }
-        });
-**/
-
-
-        final Intent i=new Intent(this,Uploadpdf.class);
-        addpdfbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(i);
-
-            }
-        });
-
- //DatabaseReference dtbrf= FirebaseDatabase.getInstance().getReference();
-/**
-        dtbrf.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                String pdfname =dataSnapshot.getKey();
-                String Pdfurl=dataSnapshot.getValue(String.class);
-                PDFfile p=new PDFfile(pdfname,Pdfurl);
-                mpdFfileList.add(p);
-              madpterDownload.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-**/
 
 
 
         BottomNavigationView bottomnavigation=findViewById(R.id.bottomnavigatin);
         bottomnavigation.setOnNavigationItemSelectedListener(navlistner);
         // this line forecessthr b ook fargment to be inflated frist with out clicking
-       // getSupportFragmentManager().beginTransaction().replace(R.id.fargmentscontainer,new Fragment_books()).commit();
+       getSupportFragmentManager().beginTransaction().replace(R.id.fargmentscontainer,new Fragment_books()).commit();
 
 
 
@@ -190,7 +89,8 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.aboutMenu:
                 Log.d(LOG_TAG, "Clicked on About!");
-                // Code for About goes here
+                final Intent i=new Intent(this,Uploadpdf.class);
+                startActivity(i);
                 return true;
             case R.id.addarticle:
                 Log.d(LOG_TAG, "Clicked on Help!");

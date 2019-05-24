@@ -1,5 +1,7 @@
 package com.walaabu.gadalaw;
 
+import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +13,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class Adapterforbook extends RecyclerView.Adapter<Adapterforbook.Viewholder>{
+    private static final String LOG_TAG = Adapterforbook.class.getSimpleName();
+    CustomItemClickListener clickListener;
+    Context context;
+    List<String> mchpterlist;
 
-    List<Article> marticlelist;
+    public Adapterforbook(Context context,List<String>mchpterlist,CustomItemClickListener clickListener){
+        this.context=context;
+       this.mchpterlist=mchpterlist;
+       this.clickListener=clickListener;
 
-    public Adapterforbook(List<Article>articlelist){
-        marticlelist=articlelist;
+        Log.d(LOG_TAG, "setting the texts completed-----------------Adaper-----------------");
     }
 
     @NonNull
@@ -24,24 +32,33 @@ public class Adapterforbook extends RecyclerView.Adapter<Adapterforbook.Viewhold
 
         View v= LayoutInflater.from(parent.getContext()).
                 inflate(R.layout.item_article,parent,false);
-        return new Adapterforbook.Viewholder(v);
+
+        final Viewholder viewholder= new Adapterforbook.Viewholder(v);
+
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.onItemClick(v,viewholder.getPosition());
+            }
+        });
+
+
+        return viewholder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull Viewholder holder, int position) {
-        Article marticle=marticlelist.get(position);
-        String mnumber=  Integer.toString(marticle.getNumber());
-        String mtitle=marticle.getTitle();
 
 
-        holder.marticleTitle.setText(mtitle);
-        holder.marticlenumber.setText(mnumber);
+        holder.marticleTitle.setText(mchpterlist.get(position).replace("_"," "));
+
+        Log.d(LOG_TAG, "setting the texts completed-----------------Adaper-----------------");
 
     }
 
     @Override
     public int getItemCount() {
-        return marticlelist.size();
+        return mchpterlist.size();
     }
 
     public class Viewholder extends RecyclerView.ViewHolder{
@@ -50,7 +67,7 @@ public class Adapterforbook extends RecyclerView.Adapter<Adapterforbook.Viewhold
         public Viewholder(@NonNull View itemView) {
             super(itemView);
 
-            marticlenumber=itemView.findViewById(R.id.tv_articlenumber);
+           // marticlenumber=itemView.findViewById(R.id.tv_articlenumber);
             marticleTitle=itemView.findViewById(R.id.tv_articletitle);
         }
     }

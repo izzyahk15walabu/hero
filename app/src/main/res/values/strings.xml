@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">GADA law</string>
     <string name="title_activity_test">test</string>
-    <string name="title_books">books</string>
-    <string name="title_download">Download</string>
-    <string name="title_saved">saved</string>
+    <string name="title_books">HEERA </string>
+    <string name="title_download">LABSIILE</string>
+    <string name="title_saved">RESOURCES</string>
     <string name="title_activity_addarticle">AddarticleActivity</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"

@@ -10,11 +10,6 @@ import androidx.room.Query;
 @Dao
 public interface ArticleDao {
 
-    @Query("SELECT *FROM Article ORDER BY number")
-    List<Article>LoasdallArticle();
-
-    @Insert
-    void InsertArticle(Article article);
 
 
 }

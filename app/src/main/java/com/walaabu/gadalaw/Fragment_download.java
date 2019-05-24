@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class Fragment_download extends Fragment {
+
+
     private static final String LOG_TAG = "MainActivity ";
 RecyclerView recyclerView;
 
@@ -28,13 +31,18 @@ RecyclerView recyclerView;
   private   Adapterfordownloadpdfs madpterDownload;
 
 FirebaseViewmodel mviewModelfordownloadfrag;
+    LiveData<List<PDFfile>> mLiveData;
+
+     ProgressBar progressBar;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v= inflater.inflate(R.layout.fragment_download, container, false);
-
+   progressBar=v.findViewById(R.id.progressbar);
         recyclerView=v.findViewById(R.id.rc_fordownloadfrgment);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        recyclerView.setVisibility(View.GONE);
+        //progressBar.setVisibility(View.VISIBLE);
 
 
         return v;}
@@ -44,12 +52,14 @@ FirebaseViewmodel mviewModelfordownloadfrag;
         super.onActivityCreated(savedInstanceState);
         mpdFfileList=new ArrayList<>();
         mviewModelfordownloadfrag=  ViewModelProviders.of(getActivity()).get(FirebaseViewmodel.class);
-        LiveData<List<PDFfile>> mLiveData = mviewModelfordownloadfrag.geeetPdfLiveData();
+        mLiveData = mviewModelfordownloadfrag.geeetPdfLiveData();
         mLiveData.observe(getViewLifecycleOwner(), new Observer<List<PDFfile>>() {
             @Override
             public void onChanged(List<PDFfile> pdFfileList) {
 
                 if (pdFfileList!=null) {
+                    progressBar.setVisibility(View.INVISIBLE);
+                    recyclerView.setVisibility(View.VISIBLE);
                     Log.d(LOG_TAG, "istning to the changes ...... ..... .... ... .. .. .. . . ");
                     mpdFfileList = pdFfileList;
 
@@ -67,4 +77,6 @@ FirebaseViewmodel mviewModelfordownloadfrag;
             }
         });
     }
+
+
 }

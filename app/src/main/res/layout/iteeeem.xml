@@ -10,52 +10,44 @@
     android:visibility="visible">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="76dp">
 
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="51dp"
-            android:layout_height="44dp"
+            android:id="@+id/ibid_downloadpdf"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
             android:layout_marginStart="4dp"
             android:layout_marginLeft="4dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="18dp"
             android:layout_marginBottom="8dp"
+            android:contentDescription="@android:string/ok"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.866"
-            app:srcCompat="@drawable/ic_picture_as_pdf_black_24dp" />
+            app:srcCompat="@drawable/ic_file_download_black_24dp" />
 
         <TextView
             android:id="@+id/tvid_bookmame"
-            android:layout_width="289dp"
+            android:layout_width="wrap_content"
             android:layout_height="49dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="2dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
             android:gravity="center|start"
             android:text="TextView"
             android:textColor="@android:color/holo_blue_dark"
-            android:textSize="15dp"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ibid_downloadpdf"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/ibid_downloadpdf"
-            android:layout_width="48dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.333"
-            app:layout_constraintStart_toEndOf="@+id/tvid_bookmame"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_file_download_black_24dp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
 
 
 </androidx.cardview.widget.CardView>

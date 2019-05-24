@@ -34,8 +34,8 @@ AppDatabase mdb;
                 mnumber= Integer.parseInt(number.getText().toString());
                 mtitile=title.getText().toString();
                 mcontent=content.getText().toString();
-                Article article=new Article(mnumber,mtitile,mcontent);
-                mdb.ArticleDao().InsertArticle(article);
+                //Article article=new Article(mnumber,mtitile,mcontent);
+                //mdb.ArticleDao().InsertArticle(article);
                 finish();
 
             }
