@@ -1,6 +1,5 @@
 package com.walaabu.gadalaw;
 
-import android.app.Application;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
@@ -12,21 +11,20 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
-public class FirebaseViewmodel extends ViewModel {
+public class FirebaseViewmodelRES extends ViewModel {
     private static final String LOG_TAG = "FirebaseViewmodel";
 
 
 
-    private    DatabaseReference dtbrf= FirebaseDatabase.getInstance().getReference("PDF");
+    private DatabaseReference dtbrf= FirebaseDatabase.getInstance().getReference("RES");
 
     FirebaseLiveData livedta=new FirebaseLiveData(dtbrf);
 
 
 
-   //- deserialize a DataSnapshot into a Pdf.calss type
+    //- deserialize a DataSnapshot into a Pdf.calss type
     private class Deserializer implements Function<DataSnapshot,PDFfile> {
         @Override
         public PDFfile apply(DataSnapshot dataSnapshot) {
@@ -36,12 +34,14 @@ public class FirebaseViewmodel extends ViewModel {
 
 
 
-// this returnes the actual pdf class type object
+    // this returnes the actual pdf class type object
     @NonNull
     public LiveData<List<PDFfile>> geeetPdfLiveData() {
         Log.d(LOG_TAG, "Sendimg data to main activity from viewmodel ...... ..... .... ... .. .. .. . . ");
         return livedta;
 
     }
+
+
 
 }

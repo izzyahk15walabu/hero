@@ -41,8 +41,13 @@ FirebaseViewmodel mviewModelfordownloadfrag;
    progressBar=v.findViewById(R.id.progressbar);
         recyclerView=v.findViewById(R.id.rc_fordownloadfrgment);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        recyclerView.addItemDecoration(HeaderDecoration.with(recyclerView)
+                .inflate(R.layout.headerfordownload)
+                .parallax(0.2f)
+                .dropShadowDp(4)
+                .build());
         recyclerView.setVisibility(View.GONE);
-        //progressBar.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
 
 
         return v;}
@@ -52,6 +57,7 @@ FirebaseViewmodel mviewModelfordownloadfrag;
         super.onActivityCreated(savedInstanceState);
         mpdFfileList=new ArrayList<>();
         mviewModelfordownloadfrag=  ViewModelProviders.of(getActivity()).get(FirebaseViewmodel.class);
+
         mLiveData = mviewModelfordownloadfrag.geeetPdfLiveData();
         mLiveData.observe(getViewLifecycleOwner(), new Observer<List<PDFfile>>() {
             @Override
@@ -60,6 +66,7 @@ FirebaseViewmodel mviewModelfordownloadfrag;
                 if (pdFfileList!=null) {
                     progressBar.setVisibility(View.INVISIBLE);
                     recyclerView.setVisibility(View.VISIBLE);
+
                     Log.d(LOG_TAG, "istning to the changes ...... ..... .... ... .. .. .. . . ");
                     mpdFfileList = pdFfileList;
 
